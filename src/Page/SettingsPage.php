@@ -2,6 +2,7 @@
 
 namespace Jascha030\WPSettings\Page;
 
+use Exception;
 use Jascha030\WPSettings\Setting;
 
 class SettingsPage
@@ -176,14 +177,15 @@ class SettingsPage
                 throw new Exception("Missing argument \"{$key}\" for provided setting.");
             }
 
-            if (gettype($key) !== $type) {
-                throw new Exception("Invalid data provided for " . WordpressSetting::class . ", \"{$key}\" must of type: \"{$type}\".");
+            if (gettype($args[$key]) !== $type) {
+                throw new Exception("Invalid data provided for " . Setting::class . ", \"{$key}\" must of type: \"{$type}\".");
             }
 
-            $settingArray[$key] = $args[$key];
+            $settingArray[] = $args[$key];
         }
 
-        $settingArray["options"] = (array_key_exists("options",
+
+        $settingArray[] = (array_key_exists("options",
                 $args) && is_array($args["options"])) ? $args["options"] : null;
 
         $this->addSetting(...$settingArray);
