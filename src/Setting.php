@@ -2,8 +2,13 @@
 
 namespace Jascha030\WPSettings;
 
+use Jascha030\WPSettings\Page\SettingsPage;
+
 class Setting
 {
+    /**
+     * @var SettingsPage 
+     */
     private $page;
 
     /**
@@ -26,12 +31,20 @@ class Setting
      */
     private $options;
 
-    public function __construct($page, string $title, int $type = HtmlField::TEXT, array $options = null)
+    public function __construct(SettingsPage $page, string $title, int $type = HtmlField::TEXT, array $options = null)
     {
         $this->page  = $page;
         $this->title = $title;
         $this->type    = $type;
         $this->options = $options;
+    }
+
+    public function register()
+    {
+        add_settings_field($this->slug, $this->title, [$this, 'renderField'], $this->page->getSlug(),
+            $this->page->getSectionSlug());
+
+        register_setting($this->page->getSectionSlug(), $this->slug, ['type' => $this->getFieldHtmlType()]);
     }
 
     public function renderField()
