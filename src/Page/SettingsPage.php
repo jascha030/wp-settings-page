@@ -5,6 +5,17 @@ namespace Jascha030\WPSettings\Page;
 use Exception;
 use Jascha030\WPSettings\Setting;
 
+/**
+ * Class SettingsPage
+ *
+ * @package Jascha030\WPSettings\Page
+ *
+ * @todo: Create possibility to use custom templates.
+ *
+ * @todo: Add upload field
+ *
+ * @todo: Add Date fields
+ */
 class SettingsPage
 {
     /**
@@ -114,8 +125,8 @@ class SettingsPage
             if ($setting instanceof Setting) {
                 $setting->register();
             } else {
-                $className = self::class;
-                throw new Exception("Setting is not of class \"$className\"");
+                $className = Setting::class;
+                throw new Exception("Setting is not of class \"{$className}\"");
             }
         }
     }
