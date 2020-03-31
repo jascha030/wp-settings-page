@@ -1,0 +1,26 @@
+<?php
+
+namespace Jascha030\WPSettings\Page;
+
+use Jascha030\WPOL\Subscription\Provider\ActionProvider;
+use Jascha030\WPOL\Subscription\Provider\Provider;
+
+class SettingsPageProvider extends SettingsPage implements ActionProvider
+{
+    USE Provider;
+
+    protected static $actions = [
+        'admin_menu' => 'registerPage',
+        'admin_init' => 'registerSettings'
+    ];
+
+    public function __construct(
+        string $title,
+        string $prefix = null,
+        string $section = null,
+        array $settings = null,
+        string $capability = "manage_options"
+    ) {
+        parent::__construct($title, $prefix, $section, $settings, $capability, false);
+    }
+}

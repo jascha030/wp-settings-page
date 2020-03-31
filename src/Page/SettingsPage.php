@@ -184,9 +184,7 @@ class SettingsPage
             $settingArray[] = $args[$key];
         }
 
-
-        $settingArray[] = (array_key_exists("options",
-                $args) && is_array($args["options"])) ? $args["options"] : null;
+        $settingArray[] = (array_key_exists("options", $args) && is_array($args["options"])) ? $args["options"] : null;
 
         $this->addSetting(...$settingArray);
     }
