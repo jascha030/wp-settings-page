@@ -3,10 +3,19 @@
 namespace Jascha030\WPSettings\Page;
 
 use Exception;
+use Jascha030\WPOL\Subscription\Provider\ActionProvider;
+use Jascha030\WPOL\Subscription\Provider\Provider;
 use Jascha030\WPSettings\Setting;
 
-class SettingsPage
+class SettingsPage implements ActionProvider
 {
+    USE Provider;
+
+    protected static $actions = [
+        'admin_menu' => 'registerPage',
+        'admin_init' => 'registerSettings'
+    ];
+
     /**
      * @var string
      */
@@ -63,7 +72,7 @@ class SettingsPage
         }
 
         if ($init) {
-            $this->hook();
+            //            $this->();
         }
     }
 
@@ -152,16 +161,6 @@ class SettingsPage
     }
 
     /**
-     * Hooks plugin functions
-     */
-    private function hook()
-    {
-        add_action('admin_menu', [$this, 'registerPage']);
-
-        add_action('admin_init', [$this, 'registerSettings']);
-    }
-
-    /**
      * Checks provided settings validity and add it
      *
      * @param array $args
@@ -184,9 +183,7 @@ class SettingsPage
             $settingArray[] = $args[$key];
         }
 
-
-        $settingArray[] = (array_key_exists("options",
-                $args) && is_array($args["options"])) ? $args["options"] : null;
+        $settingArray[] = (array_key_exists("options", $args) && is_array($args["options"])) ? $args["options"] : null;
 
         $this->addSetting(...$settingArray);
     }
