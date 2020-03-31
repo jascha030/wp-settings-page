@@ -72,7 +72,7 @@ class Setting
 
     private function renderLoopableField(): string
     {
-        $html = "";
+        $html = "<br />";
 
         foreach ($this->options as $key => $value) {
             $id   = "{$this->slug}-{$key}";
@@ -80,7 +80,7 @@ class Setting
 
             $checked = checked(1, $name, false);
 
-            $html .= sprintf('<input type="%3$s" id="%1$s" name="%4$s" value="1" %5$s /><label for="%1$s">%2$s</label> <br />',
+            $html .= sprintf('<input type="%3$s" id="%1$s" name="%4$s" value="1" %5$s /><label for="%1$s">%2$s</label> <br /> <br />',
                 $id, $value, HtmlField::getInputType($this->type), $name, $checked);
         }
 
