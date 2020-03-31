@@ -5,6 +5,11 @@ namespace Jascha030\WPSettings\Page;
 use Jascha030\WPOL\Subscription\Provider\ActionProvider;
 use Jascha030\WPOL\Subscription\Provider\Provider;
 
+/**
+ * Class SettingsPageProvider
+ *
+ * @package Jascha030\WPSettings\Page
+ */
 class SettingsPageProvider extends SettingsPage implements ActionProvider
 {
     USE Provider;

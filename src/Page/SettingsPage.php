@@ -11,10 +11,6 @@ use Jascha030\WPSettings\Setting;
  * @package Jascha030\WPSettings\Page
  *
  * @todo: Create possibility to use custom templates.
- *
- * @todo: Add upload field
- *
- * @todo: Add Date fields
  */
 class SettingsPage
 {

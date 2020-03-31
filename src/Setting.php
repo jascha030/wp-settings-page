@@ -4,6 +4,15 @@ namespace Jascha030\WPSettings;
 
 use Jascha030\WPSettings\Page\SettingsPage;
 
+/**
+ * Class Setting
+ *
+ * @package Jascha030\WPSettings
+ *
+ * @todo: Add upload field
+ *
+ * @todo: Add Date fields
+ */
 class Setting
 {
     /**
