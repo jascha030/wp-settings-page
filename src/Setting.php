@@ -61,8 +61,11 @@ class Setting
     {
         switch ($this->type) {
             case HtmlField::CHECKBOX:
+                echo $this->renderCheckbox();
+                break;
+
             case HtmlField::RADIO:
-                echo $this->renderLoopableField();
+                echo $this->renderRadio();
                 break;
 
             case HtmlField::SELECT:
@@ -83,7 +86,15 @@ class Setting
         }
     }
 
-    private function renderLoopableField(): string
+    private function renderCheckbox(): string
+    {
+        $checked = checked("1", $this->getOption(), true);
+
+        return sprintf('<input type="%3$s" id="%1$s" name="%1$s" value="1" %4$s /><label for="%1$s">%2$s</label> <br /> <br />',
+            $this->slug, $this->title, HtmlField::getInputType($this->type), $checked);
+    }
+
+    private function renderRadio(): string
     {
         $html = "<br />";
 
@@ -91,10 +102,10 @@ class Setting
             $id   = "{$this->slug}-{$key}";
             $name = "{$this->slug}[{$key}]";
 
-            $checked = checked(1, $name, false);
+            $checked = checked($key, $this->getOption(), true);
 
-            $html .= sprintf('<input type="%3$s" id="%1$s" name="%4$s" value="1" %5$s /><label for="%1$s">%2$s</label> <br /> <br />',
-                $id, $value, HtmlField::getInputType($this->type), $name, $checked);
+            $html .= sprintf('<input type="%3$s" id="%1$s" name="%4$s" value="%6$s" %5$s /><label for="%1$s">%2$s</label> <br /> <br />',
+                $id, $value, HtmlField::getInputType($this->type), $name, $checked, $key);
         }
 
         return $html;
