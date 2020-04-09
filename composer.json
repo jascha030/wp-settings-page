@@ -1,14 +1,23 @@
 {
   "name": "jascha030/wp-settings",
   "description": "",
-  "version": "0.0.1",
+  "version": "1.0.1",
   "license": "MIT",
+  "require": {
+    "jascha030/wpol-subscriptions": "1.0.0"
+  },
   "authors": [
     {
       "name": "Jascha van Aalst",
       "email": "contact@jaschavanaalst.nl",
       "homepage": "https://github.com/jascha030",
       "role": "Developer"
+    }
+  ],
+  "repositories": [
+    {
+      "type": "path",
+      "url": "../wpol-subscriptions"
     }
   ],
   "autoload": {
