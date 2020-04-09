@@ -1,0 +1,46 @@
+{
+    "_readme": [
+        "This file locks the dependencies of your project to a known state",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
+        "This file is @generated automatically"
+    ],
+    "content-hash": "0531fb38e4791274fa17c981758970d7",
+    "packages": [
+        {
+            "name": "jascha030/wpol-subscriptions",
+            "version": "1.0.0",
+            "dist": {
+                "type": "path",
+                "url": "../wpol-subscriptions",
+                "reference": "3f94e52f43ded32aae66ee16a58187f8883a69e1",
+                "shasum": null
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Jascha030\\WPOL\\Subscription\\": "src/"
+                }
+            },
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Jascha van Aalst",
+                    "email": "contact@jaschavanaalst.nl",
+                    "homepage": "https://github.com/jascha030",
+                    "role": "Developer"
+                }
+            ],
+            "description": "OOP Interface for using the WP Plugin API (Hooks)"
+        }
+    ],
+    "packages-dev": [],
+    "aliases": [],
+    "minimum-stability": "stable",
+    "stability-flags": [],
+    "prefer-stable": false,
+    "prefer-lowest": false,
+    "platform": [],
+    "platform-dev": []
+}
