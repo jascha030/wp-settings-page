@@ -73,6 +73,10 @@ class Setting
                 echo $this->renderTextarea();
                 break;
 
+            case HtmlField::FILE:
+                echo $this->renderFileField();
+                break;
+
             default:
                 echo $this->renderInputField();
                 break;
@@ -121,6 +125,13 @@ class Setting
 
         return sprintf('<input type="%1$s" id="%2$s" name="%2$s" value="%3$s" />', HtmlField::getInputType($this->type),
             $this->slug, $sanitized ?? "");
+    }
+
+    private function renderFileField()
+    {
+        return sprintf('<input type="%1$s" id="%2$s" name="%2$s" accept="%3$s" value="%4$s" /> <br /> 
+        <p>%5$s</p>', HtmlField::getInputType($this->type), $this->slug, $this->type, $this->getOption(),
+            $this->getOption(true));
     }
 
     /**

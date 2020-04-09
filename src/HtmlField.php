@@ -30,12 +30,11 @@ class HtmlField
     ];
 
     const FILE_TYPES = [
-        'image' => self::IMAGE_TYPES,
+        'image'       => self::IMAGE_TYPES,
         'application' => self::APPLICATION_FILE_TYPES,
-        'audio' => self::AUDIO_FILE_TYPES,
-        'video' => self::VIDEO_FILE_TYPES
+        'audio'       => self::AUDIO_FILE_TYPES,
+        'video'       => self::VIDEO_FILE_TYPES
     ];
-
 
     const IMAGE_TYPES = [
         'png',
@@ -86,11 +85,11 @@ class HtmlField
     {
         $sections = explode('/', $mime);
 
-        if (!array_key_exists($sections[0], self::FILE_TYPES)) {
+        if (! array_key_exists($sections[0], self::FILE_TYPES)) {
             return false;
         }
 
-        if (!in_array(self::FILE_TYPES[$sections[0]], $sections[1])) {
+        if (! in_array(self::FILE_TYPES[$sections[0]], $sections[1])) {
             return false;
         }
 
