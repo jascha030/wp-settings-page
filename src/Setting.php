@@ -9,9 +9,7 @@ use Jascha030\WPSettings\Page\SettingsPage;
  *
  * @package Jascha030\WPSettings
  *
- * @todo: Add upload field
- *
- * @todo: Add Date fields
+ * @todo: Add check on MIME
  */
 class Setting
 {
@@ -54,15 +52,23 @@ class Setting
         add_settings_field($this->slug, $this->title, [$this, 'renderField'], $this->page->getSlug(),
             $this->page->getSectionSlug());
 
-        register_setting($this->page->getSectionSlug(), $this->slug, ['type' => HtmlField::getInputType($this->type)]);
+        if ($this->type === HtmlField::FILE) {
+            $callback = [$this, 'uploadFile'];
+        }
+        $args = ['type' => HtmlField::getInputType($this->type), 'sanitize_callback' => $callback ?? null];
+
+        register_setting($this->page->getSectionSlug(), $this->slug, $args);
     }
 
     public function renderField()
     {
         switch ($this->type) {
             case HtmlField::CHECKBOX:
+                echo $this->renderCheckbox();
+                break;
+
             case HtmlField::RADIO:
-                echo $this->renderLoopableField();
+                echo $this->renderRadio();
                 break;
 
             case HtmlField::SELECT:
@@ -73,13 +79,53 @@ class Setting
                 echo $this->renderTextarea();
                 break;
 
+            case HtmlField::FILE:
+                echo $this->renderFileField();
+                break;
+
             default:
                 echo $this->renderInputField();
                 break;
         }
     }
 
-    private function renderLoopableField(): string
+    /**
+     * @param $option
+     *
+     * @return mixed
+     */
+    public function uploadFile($option)
+    {
+        if (! function_exists('wp_handle_upload')) {
+            require_once(ABSPATH . 'wp-admin/includes/file.php');
+        }
+
+        if (! empty($_FILES[$this->slug]["tmp_name"])) {
+
+            $uploadedFile     = $_FILES[$this->slug];
+            $moveFile         = wp_handle_upload($uploadedFile, ['test_form' => false]);
+
+            if ($moveFile && ! isset($moveFile['error'])) {
+
+                return $moveFile['file'];
+            } else {
+
+                echo $moveFile['error'];
+            }
+        }
+
+        return $this->getOption();
+    }
+
+    private function renderCheckbox(): string
+    {
+        $checked = checked("1", $this->getOption(), true);
+
+        return sprintf('<input type="%3$s" id="%1$s" name="%1$s" value="1" %4$s /><label for="%1$s">%2$s</label> <br /> <br />',
+            $this->slug, $this->title, HtmlField::getInputType($this->type), $checked);
+    }
+
+    private function renderRadio(): string
     {
         $html = "<br />";
 
@@ -87,10 +133,10 @@ class Setting
             $id   = "{$this->slug}-{$key}";
             $name = "{$this->slug}[{$key}]";
 
-            $checked = checked(1, $name, false);
+            $checked = checked($key, $this->getOption(), true);
 
-            $html .= sprintf('<input type="%3$s" id="%1$s" name="%4$s" value="1" %5$s /><label for="%1$s">%2$s</label> <br /> <br />',
-                $id, $value, HtmlField::getInputType($this->type), $name, $checked);
+            $html .= sprintf('<input type="%3$s" id="%1$s" name="%4$s" value="%6$s" %5$s /><label for="%1$s">%2$s</label> <br /> <br />',
+                $id, $value, HtmlField::getInputType($this->type), $name, $checked, $key);
         }
 
         return $html;
@@ -121,6 +167,16 @@ class Setting
 
         return sprintf('<input type="%1$s" id="%2$s" name="%2$s" value="%3$s" />', HtmlField::getInputType($this->type),
             $this->slug, $sanitized ?? "");
+    }
+
+    private function renderFileField()
+    {
+        $accept = (isset($this->options['accept'])) ? "accept='{$this->options['accept']}'": '';
+
+        return sprintf('<input type="%1$s" id="%2$s" name="%2$s" %3$s value="%4$s" /> <br /> 
+
+        <p>%5$s</p>', HtmlField::getInputType($this->type), $this->slug, $accept, $this->getOption(),
+            $this->getOption(true));
     }
 
     /**
