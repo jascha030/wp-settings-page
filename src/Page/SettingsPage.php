@@ -12,6 +12,8 @@ use Jascha030\WPSettings\Setting;
  * @package Jascha030\WPSettings\Page
  *
  * @todo: Create possibility to use custom templates.
+ *
+ * @todo: Add possibility to add slug manually.
  */
 class SettingsPage
 {

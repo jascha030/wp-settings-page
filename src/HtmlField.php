@@ -21,7 +21,7 @@ class HtmlField
         self::SELECT   => "select",
         self::FILE     => "file",
         self::DATE     => "date",
-        self::DATETIME => "datetime"
+        self::DATETIME => "datetime-local"
     ];
 
     const REGULAR_INPUT_TYPES = [
