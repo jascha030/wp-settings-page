@@ -10,6 +10,8 @@ class HtmlField
     const CHECKBOX = 3;
     const SELECT = 4;
     const FILE = 5;
+    const DATE = 6;
+    const DATETIME = 7;
 
     const HTML_INPUT_TYPES = [
         self::TEXT     => "text",
@@ -18,15 +20,18 @@ class HtmlField
         self::CHECKBOX => "checkbox",
         self::SELECT   => "select",
         self::FILE     => "file",
+        self::DATE     => "date",
+        self::DATETIME => "datetime"
     ];
 
     const REGULAR_INPUT_TYPES = [
         self::TEXT,
+        self::DATE,
+        self::DATETIME
     ];
 
     const LOOP_FIELD = [
         self::RADIO,
-        self::CHECKBOX
     ];
 
     const FILE_TYPES = [

@@ -3,6 +3,7 @@
 namespace Jascha030\WPSettings\Page;
 
 use Exception;
+use Jascha030\WPSettings\HtmlField;
 use Jascha030\WPSettings\Setting;
 
 /**
@@ -48,6 +49,8 @@ class SettingsPage
      * @var string
      */
     private $sectionSlug;
+
+    private $containsUpload = false;
 
     public function __construct(
         string $title,
@@ -132,9 +135,11 @@ class SettingsPage
      */
     public function render()
     {
+        $multipart = ($this->containsUpload) ? ' enctype="multipart/form-data">' : '>';
+
         echo "<div class='wrap'>";
         echo "<h1>{$this->title}</h1>";
-        echo "<form method='post' action='options.php'>";
+        echo "<form method='post' action='options.php'{$multipart}";
 
         settings_fields($this->sectionSlug);
 
@@ -149,12 +154,16 @@ class SettingsPage
     /**
      * Add a setting field
      *
-     * @param $title
-     * @param $type
+     * @param string $title
+     * @param int $type
      * @param array|null $options
      */
-    public function addSetting($title, $type, array $options = null)
+    public function addSetting(string $title, int $type, array $options = null)
     {
+        if ($type === HtmlField::FILE) {
+            $this->containsUpload = true;
+        }
+
         $this->settings[] = new Setting($this, $title, $type, $options);
     }
 

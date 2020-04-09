@@ -9,9 +9,7 @@ use Jascha030\WPSettings\Page\SettingsPage;
  *
  * @package Jascha030\WPSettings
  *
- * @todo: Add upload field
- *
- * @todo: Add Date fields
+ * @todo: Add check on MIME
  */
 class Setting
 {
@@ -54,7 +52,12 @@ class Setting
         add_settings_field($this->slug, $this->title, [$this, 'renderField'], $this->page->getSlug(),
             $this->page->getSectionSlug());
 
-        register_setting($this->page->getSectionSlug(), $this->slug, ['type' => HtmlField::getInputType($this->type)]);
+        if ($this->type === HtmlField::FILE) {
+            $callback = [$this, 'uploadFile'];
+        }
+        $args = ['type' => HtmlField::getInputType($this->type), 'sanitize_callback' => $callback ?? null];
+
+        register_setting($this->page->getSectionSlug(), $this->slug, $args);
     }
 
     public function renderField()
@@ -84,6 +87,34 @@ class Setting
                 echo $this->renderInputField();
                 break;
         }
+    }
+
+    /**
+     * @param $option
+     *
+     * @return mixed
+     */
+    public function uploadFile($option)
+    {
+        if (! function_exists('wp_handle_upload')) {
+            require_once(ABSPATH . 'wp-admin/includes/file.php');
+        }
+
+        if (! empty($_FILES[$this->slug]["tmp_name"])) {
+
+            $uploadedFile     = $_FILES[$this->slug];
+            $moveFile         = wp_handle_upload($uploadedFile, ['test_form' => false]);
+
+            if ($moveFile && ! isset($moveFile['error'])) {
+
+                return $moveFile['file'];
+            } else {
+
+                echo $moveFile['error'];
+            }
+        }
+
+        return $this->getOption();
     }
 
     private function renderCheckbox(): string
@@ -140,8 +171,11 @@ class Setting
 
     private function renderFileField()
     {
-        return sprintf('<input type="%1$s" id="%2$s" name="%2$s" accept="%3$s" value="%4$s" /> <br /> 
-        <p>%5$s</p>', HtmlField::getInputType($this->type), $this->slug, $this->type, $this->getOption(),
+        $accept = (isset($this->options['accept'])) ? "accept='{$this->options['accept']}'": '';
+
+        return sprintf('<input type="%1$s" id="%2$s" name="%2$s" %3$s value="%4$s" /> <br /> 
+
+        <p>%5$s</p>', HtmlField::getInputType($this->type), $this->slug, $accept, $this->getOption(),
             $this->getOption(true));
     }
 
