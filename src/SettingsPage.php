@@ -50,6 +50,9 @@ class SettingsPage
      */
     protected $sectionSlug;
 
+    /**
+     * @var bool 
+     */
     protected $containsUpload = false;
 
     public function __construct(
