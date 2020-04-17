@@ -2,8 +2,9 @@
 
 namespace Jascha030\WPSettings\Provider;
 
-use Jascha030\WPOL\Subscription\Provider\ActionProvider;
-use Jascha030\WPOL\Subscription\Provider\Provider;
+use Jascha030\WP\Settings\SettingsPage;
+use Jascha030\WP\Subscriptions\Provider\ActionProvider;
+use Jascha030\WP\Subscriptions\Provider\Provider;
 
 /**
  * Class SettingsPageProvider
@@ -24,8 +25,9 @@ class SettingsPageProvider extends SettingsPage implements ActionProvider
         string $prefix = null,
         string $section = null,
         array $settings = null,
-        string $capability = "manage_options"
+        string $capability = "manage_options",
+        bool $init = false
     ) {
-        parent::__construct($title, $prefix, $section, $settings, $capability, false);
+        parent::__construct($title, $prefix, $section, $settings, $capability, $init);
     }
 }
