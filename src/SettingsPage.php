@@ -18,39 +18,39 @@ class SettingsPage
     /**
      * @var string
      */
-    private $title;
+    protected $title;
 
     /**
      * @var string
      */
-    private $prefix;
+    protected $prefix;
 
     /**
      * @var string
      */
-    private $slug;
+    protected $slug;
 
     /**
      * @var string|null
      */
-    private $capability;
+    protected $capability;
 
     /**
      * @var array
      */
-    private $settings = [];
+    protected $settings = [];
 
     /**
      * @var string|null
      */
-    private $section;
+    protected $section;
 
     /**
      * @var string
      */
-    private $sectionSlug;
+    protected $sectionSlug;
 
-    private $containsUpload = false;
+    protected $containsUpload = false;
 
     public function __construct(
         string $title,
@@ -184,7 +184,7 @@ class SettingsPage
      *
      * @throws Exception
      */
-    private function sanitizeAndAddSetting(array $args)
+    protected function sanitizeAndAddSetting(array $args)
     {
         $settingArray = [];
 
