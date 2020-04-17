@@ -2,7 +2,7 @@
 
 namespace Jascha030\WPSettings;
 
-use Jascha030\WPSettings\Page\SettingsPage;
+use Jascha030\WP\Settings\SettingsPage;
 
 /**
  * Class Setting

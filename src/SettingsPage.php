@@ -1,6 +1,6 @@
 <?php
 
-namespace Jascha030\WPSettings\Page;
+namespace Jascha030\WP\Settings;
 
 use Exception;
 use Jascha030\WPSettings\HtmlField;
@@ -8,8 +8,6 @@ use Jascha030\WPSettings\Setting;
 
 /**
  * Class SettingsPage
- *
- * @package Jascha030\WPSettings\Page
  *
  * @todo: Create possibility to use custom templates.
  *
