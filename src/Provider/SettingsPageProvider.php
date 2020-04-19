@@ -1,6 +1,6 @@
 <?php
 
-namespace Jascha030\WPSettings\Provider;
+namespace Jascha030\WP\Settings\Provider;
 
 use Jascha030\WP\Settings\SettingsPage;
 use Jascha030\WP\Subscriptions\Provider\ActionProvider;

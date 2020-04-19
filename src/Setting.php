@@ -1,8 +1,6 @@
 <?php
 
-namespace Jascha030\WPSettings;
-
-use Jascha030\WP\Settings\SettingsPage;
+namespace Jascha030\WP\Settings;
 
 /**
  * Class Setting

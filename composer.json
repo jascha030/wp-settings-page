@@ -1,7 +1,7 @@
 {
   "name": "jascha030/wp-settings",
   "description": "",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "license": "MIT",
   "require": {
     "jascha030/wp-subscriptions": "^1.0"

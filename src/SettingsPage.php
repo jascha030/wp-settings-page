@@ -3,8 +3,6 @@
 namespace Jascha030\WP\Settings;
 
 use Exception;
-use Jascha030\WPSettings\HtmlField;
-use Jascha030\WPSettings\Setting;
 
 /**
  * Class SettingsPage
@@ -51,7 +49,7 @@ class SettingsPage
     protected $sectionSlug;
 
     /**
-     * @var bool 
+     * @var bool
      */
     protected $containsUpload = false;
 
