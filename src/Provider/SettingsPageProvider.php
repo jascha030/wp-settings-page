@@ -25,9 +25,10 @@ class SettingsPageProvider extends SettingsPage implements ActionProvider
         string $prefix = null,
         string $section = null,
         array $settings = null,
+        string $slug = null,
         string $capability = "manage_options",
         bool $init = false
     ) {
-        parent::__construct($title, $prefix, $section, $settings, $capability, $init);
+        parent::__construct($title, $prefix, $section, $settings, $slug, $capability, $init);
     }
 }

@@ -58,6 +58,7 @@ class SettingsPage
         string $prefix = null,
         string $section = null,
         array $settings = null,
+        string $slug = null,
         string $capability = "manage_options",
         bool $init = true
     ) {
@@ -67,7 +68,7 @@ class SettingsPage
         $this->capability = $capability;
 
         $this->sectionSlug = (! $section) ? "default" : $this->prefix . sanitize_title($section);
-        $this->slug        = $this->prefix . sanitize_title($title);
+        $this->slug        = $slug ?? $this->prefix . sanitize_title($title);
 
         if ($settings) {
             array_walk($settings, [$this, 'sanitizeAndAddSetting']);
@@ -169,16 +170,6 @@ class SettingsPage
     }
 
     /**
-     * Hooks plugin functions
-     */
-    private function hook()
-    {
-        add_action('admin_menu', [$this, 'registerPage']);
-
-        add_action('admin_init', [$this, 'registerSettings']);
-    }
-
-    /**
      * Checks provided settings validity and add it
      *
      * @param array $args
@@ -204,5 +195,15 @@ class SettingsPage
         $settingArray[] = (array_key_exists("options", $args) && is_array($args["options"])) ? $args["options"] : null;
 
         $this->addSetting(...$settingArray);
+    }
+
+    /**
+     * Hooks plugin functions
+     */
+    private function hook()
+    {
+        add_action('admin_menu', [$this, 'registerPage']);
+
+        add_action('admin_init', [$this, 'registerSettings']);
     }
 }
