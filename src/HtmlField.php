@@ -1,6 +1,6 @@
 <?php
 
-namespace Jascha030\WPSettings;
+namespace Jascha030\WP\Settings;
 
 class HtmlField
 {
