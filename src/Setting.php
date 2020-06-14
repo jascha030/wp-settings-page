@@ -47,8 +47,13 @@ class Setting
 
     public function register()
     {
-        add_settings_field($this->slug, $this->title, [$this, 'renderField'], $this->page->getSlug(),
-            $this->page->getSectionSlug());
+        add_settings_field(
+            $this->slug,
+            $this->title,
+            [$this, 'renderField'],
+            $this->page->getSlug(),
+            $this->page->getSectionSlug()
+        );
 
         if ($this->type === HtmlField::FILE) {
             $callback = [$this, 'uploadFile'];
@@ -58,7 +63,7 @@ class Setting
         register_setting($this->page->getSectionSlug(), $this->slug, $args);
     }
 
-    public function renderField()
+    public function renderField(): void
     {
         switch ($this->type) {
             case HtmlField::CHECKBOX:
@@ -99,15 +104,12 @@ class Setting
         }
 
         if (! empty($_FILES[$this->slug]["tmp_name"])) {
-
             $uploadedFile = $_FILES[$this->slug];
             $moveFile     = wp_handle_upload($uploadedFile, ['test_form' => false]);
 
             if ($moveFile && ! isset($moveFile['error'])) {
-
                 return $moveFile['file'];
             } else {
-
                 echo $moveFile['error'];
             }
         }
@@ -119,8 +121,13 @@ class Setting
     {
         $checked = checked("1", $this->getSetting(), false);
 
-        return sprintf('<input type="%3$s" id="%1$s" name="%1$s" value="1" %4$s /><label for="%1$s">%2$s</label> <br /> <br />',
-            $this->slug, $this->title, HtmlField::getInputType($this->type), $checked);
+        return sprintf(
+            '<input type="%3$s" id="%1$s" name="%1$s" value="1" %4$s /><label for="%1$s">%2$s</label> <br /> <br />',
+            $this->slug,
+            $this->title,
+            HtmlField::getInputType($this->type),
+            $checked
+        );
     }
 
     private function renderRadio(): string
@@ -131,8 +138,15 @@ class Setting
             $id      = "{$this->slug}-{$key}";
             $checked = checked($key, $this->getSetting(), false);
 
-            $html .= sprintf('<input type="%3$s" id="%1$s" name="%4$s" value="%6$s" %5$s /><label for="%1$s">%2$s</label> <br /> <br />',
-                $id, $value, HtmlField::getInputType($this->type), $this->slug, $checked, $key);
+            $html .= sprintf(
+                '<input type="%3$s" id="%1$s" name="%4$s" value="%6$s" %5$s /><label for="%1$s">%2$s</label> <br /> <br />',
+                $id,
+                $value,
+                HtmlField::getInputType($this->type),
+                $this->slug,
+                $checked,
+                $key
+            );
         }
 
         return $html;
@@ -143,8 +157,12 @@ class Setting
         $optionsHtml = "";
 
         foreach ($this->options as $key => $value) {
-            $optionsHtml .= sprintf("<option value='%s' %s >%s</option>", $key,
-                selected($this->getSetting(), $key, false), $value);
+            $optionsHtml .= sprintf(
+                "<option value='%s' %s >%s</option>",
+                $key,
+                selected($this->getSetting(), $key, false),
+                $value
+            );
         }
 
         return sprintf('<select id="%1$s" name="%1$s">%2$s</select>', $this->slug, $optionsHtml);
@@ -161,16 +179,26 @@ class Setting
     {
         $sanitized = $this->getSetting(true);
 
-        return sprintf('<input type="%1$s" id="%2$s" name="%2$s" value="%3$s" />', HtmlField::getInputType($this->type),
-            $this->slug, $sanitized ?? "");
+        return sprintf(
+            '<input type="%1$s" id="%2$s" name="%2$s" value="%3$s" />',
+            HtmlField::getInputType($this->type),
+            $this->slug,
+            $sanitized ?? ""
+        );
     }
 
     private function renderFileField()
     {
         $accept = (isset($this->options['accept'])) ? "accept='{$this->options['accept']}'" : '';
 
-        return sprintf('<input type="%1$s" id="%2$s" name="%2$s" %3$s value="%4$s" /> <br /> <p>%5$s</p>',
-            HtmlField::getInputType($this->type), $this->slug, $accept, $this->getSetting(), $this->getSetting(true));
+        return sprintf(
+            '<input type="%1$s" id="%2$s" name="%2$s" %3$s value="%4$s" /> <br /> <p>%5$s</p>',
+            HtmlField::getInputType($this->type),
+            $this->slug,
+            $accept,
+            $this->getSetting(),
+            $this->getSetting(true)
+        );
     }
 
     /**

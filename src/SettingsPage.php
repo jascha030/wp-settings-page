@@ -106,7 +106,7 @@ class SettingsPage
     /**
      * Registers page, hooked to admin_menu
      */
-    public function registerPage()
+    public function registerPage(): void
     {
         add_menu_page($this->title, $this->title, $this->capability, $this->slug, [$this, 'render'], "dashicons-store");
     }
@@ -135,7 +135,7 @@ class SettingsPage
     /**
      * Renders page html, called in registerPage method
      */
-    public function render()
+    public function render(): void
     {
         $multipart = ($this->containsUpload) ? ' enctype="multipart/form-data">' : '>';
 
@@ -186,7 +186,9 @@ class SettingsPage
             }
 
             if (gettype($args[$key]) !== $type) {
-                throw new Exception("Invalid data provided for " . Setting::class . ", \"{$key}\" must of type: \"{$type}\".");
+                throw new Exception(
+                    "Invalid data provided for " . Setting::class . ", \"{$key}\" must of type: \"{$type}\"."
+                );
             }
 
             $settingArray[] = $args[$key];

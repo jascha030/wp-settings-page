@@ -4,16 +4,16 @@ namespace Jascha030\WP\Settings;
 
 class HtmlField
 {
-    const TEXT = 0;
-    const TEXTAREA = 1;
-    const RADIO = 2;
-    const CHECKBOX = 3;
-    const SELECT = 4;
-    const FILE = 5;
-    const DATE = 6;
-    const DATETIME = 7;
+    public const TEXT = 0;
+    public const TEXTAREA = 1;
+    public const RADIO = 2;
+    public const CHECKBOX = 3;
+    public const SELECT = 4;
+    public const FILE = 5;
+    public const DATE = 6;
+    public const DATETIME = 7;
 
-    const HTML_INPUT_TYPES = [
+    public const HTML_INPUT_TYPES = [
         self::TEXT     => "text",
         self::TEXTAREA => "textarea",
         self::RADIO    => "radio",
@@ -24,24 +24,24 @@ class HtmlField
         self::DATETIME => "datetime-local"
     ];
 
-    const REGULAR_INPUT_TYPES = [
+    public const REGULAR_INPUT_TYPES = [
         self::TEXT,
         self::DATE,
         self::DATETIME
     ];
 
-    const LOOP_FIELD = [
+    public const LOOP_FIELD = [
         self::RADIO,
     ];
 
-    const FILE_TYPES = [
+    public const FILE_TYPES = [
         'image'       => self::IMAGE_TYPES,
         'application' => self::APPLICATION_FILE_TYPES,
         'audio'       => self::AUDIO_FILE_TYPES,
         'video'       => self::VIDEO_FILE_TYPES
     ];
 
-    const IMAGE_TYPES = [
+    public const IMAGE_TYPES = [
         'png',
         'jpeg',
         'gif',
@@ -49,7 +49,7 @@ class HtmlField
         'vnd.adobe.photoshop'
     ];
 
-    const APPLICATION_FILE_TYPES = [
+    public const APPLICATION_FILE_TYPES = [
         'pdf',
         'msword',
         'vnd.openxmlformats-officedocument.wordprocessingml.document',
@@ -60,14 +60,14 @@ class HtmlField
         'vnd.openxmlformats-officedocument.spreadsheetml.sheet'
     ];
 
-    const AUDIO_FILE_TYPES = [
+    public const AUDIO_FILE_TYPES = [
         'mpeg',
         'm4a',
         'ogg',
         'wav'
     ];
 
-    const VIDEO_FILE_TYPES = [
+    public const VIDEO_FILE_TYPES = [
         'mp4',
         'quicktime',
         'x-ms-wmv',
@@ -94,7 +94,7 @@ class HtmlField
             return false;
         }
 
-        if (! in_array(self::FILE_TYPES[$sections[0]], $sections[1])) {
+        if (! in_array(self::FILE_TYPES[$sections[0]], $sections[1], true)) {
             return false;
         }
 
