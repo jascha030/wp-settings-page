@@ -1,11 +1,8 @@
 {
   "name": "jascha030/wp-settings",
   "description": "Add wordpress admin pages and settings",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "license": "MIT",
-  "require": {
-    "jascha030/wp-subscriptions": "^1.0"
-  },
   "authors": [
     {
       "name": "Jascha van Aalst",
@@ -18,5 +15,9 @@
     "psr-4": {
       "Jascha030\\WP\\Settings\\": "src/"
     }
+  },
+  "require": {
+    "jascha030/wp-subscriptions": "^2.0",
+    "jascha030/wp-plugin-core": "^1.1"
   }
 }
