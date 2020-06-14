@@ -2,19 +2,15 @@
 
 namespace Jascha030\WP\Settings\Provider;
 
-use Jascha030\WP\Settings\SettingsPage;
 use Jascha030\WP\Subscriptions\Provider\ActionProvider;
-use Jascha030\WP\Subscriptions\Provider\Provider;
 
 /**
  * Class SettingsPageProvider
  *
  * @package Jascha030\WPSettings\Page
  */
-class SettingsPageProvider extends SettingsPage implements ActionProvider
+class SettingsPageProvider implements ActionProvider
 {
-    USE Provider;
-
     protected static $actions = [
         'admin_menu' => 'registerPage',
         'admin_init' => 'registerSettings'
